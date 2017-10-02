@@ -1,0 +1,84 @@
+# abort-controller
+
+<!--
+[![npm version](https://img.shields.io/npm/v/abort-controller.svg)](https://www.npmjs.com/package/abort-controller)
+[![Downloads/month](https://img.shields.io/npm/dm/abort-controller.svg)](http://www.npmtrends.com/abort-controller)
+[![Build Status](https://travis-ci.org/mysticatea/abort-controller.svg?branch=master)](https://travis-ci.org/mysticatea/abort-controller)
+[![Coverage Status](https://codecov.io/gh/mysticatea/abort-controller/branch/master/graph/badge.svg)](https://codecov.io/gh/mysticatea/abort-controller)
+[![Dependency Status](https://david-dm.org/mysticatea/abort-controller.svg)](https://david-dm.org/mysticatea/abort-controller)
+-->
+
+An implementation of [WHATWG AbortController interface](https://dom.spec.whatwg.org/#interface-abortcontroller).
+
+- This provides `AbortController` constructor that can inherit for your custom object.
+- This provides an utility that defines properties of attribute listeners (e.g. `obj.onclick`).
+
+```js
+import AbortController from "abort-controller"
+
+const controller = new AbortController()
+const signal = controller.signal
+
+signal.addEventListener("abort", () => {
+    console.log("aborted!")
+})
+
+controller.abort()
+```
+
+## 💿 Installation
+
+Use [npm](https://www.npmjs.com/) to install then use a bundler.
+
+```
+npm install abort-controller
+```
+
+Or download from [`dist` directory](./dist).
+
+- [dist/abort-controller.mjs](dist/abort-controller.mjs) ... ES modules version.
+- [dist/abort-controller.js](dist/abort-controller.js) ... Common JS version.
+- [dist/abort-controller.umd.js](dist/abort-controller.umd.js) ... UMD (Universal Module Definition) version. This is transpiled by [Babel](https://babeljs.io/) for IE 11.
+
+## 📖 Usage
+
+```js
+import AbortController from "abort-controller"
+// or
+const AbortController = require("abort-controller")
+
+// or UMD version defines a global variable:
+const AbortController = window.AbortControllerShim
+```
+
+### AbortController
+
+> https://dom.spec.whatwg.org/#interface-abortcontroller
+
+#### controller.signal
+
+The [AbortSignal](https://dom.spec.whatwg.org/#interface-AbortSignal) object which is associated to this controller.
+
+#### controller.abort()
+
+Notify `abort` event to listeners that the `signal` has.
+
+## 📰 Changelog
+
+- See [GitHub releases](https://github.com/mysticatea/abort-controller/releases).
+
+## 🍻 Contributing
+
+Contributing is welcome ❤️
+
+Please use GitHub issues/PRs.
+
+### Development tools
+
+- `npm install` installs dependencies for development.
+- `npm test` runs tests and measures code coverage.
+- `npm run clean` removes temporary files of tests.
+- `npm run coverage` opens code coverage of the previous test with your default browser.
+- `npm run lint` runs ESLint.
+- `npm run build` generates `dist` codes.
+- `npm run watch` runs tests on each file change.

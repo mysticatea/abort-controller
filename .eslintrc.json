@@ -1,0 +1,17 @@
+{
+    "extends": ["mysticatea", "mysticatea/modules"],
+    "plugins": [
+        "node"
+    ],
+    "globals": {
+        "console": false,
+        "window": false
+    },
+    "rules": {
+        // `for-of` and `typeof x === "object"` have big cost after babel-transpiling.
+        "no-restricted-syntax": ["error", "ForOfStatement", "BinaryExpression[left.operator='typeof'][right.value='object']"],
+        "mysticatea/prefer-for-of": "off",
+
+        "node/no-unsupported-features": ["error", {"ignores": ["modules"]}]
+    }
+}

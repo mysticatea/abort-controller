@@ -1,0 +1,13 @@
+sudo: false
+
+language: node_js
+node_js:
+  - "4"
+  - "6"
+  - "8"
+
+script:
+  - npm run -s test:mocha
+
+after_success:
+  - npm run codecov
