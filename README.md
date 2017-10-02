@@ -1,12 +1,10 @@
 # abort-controller
 
-<!--
 [![npm version](https://img.shields.io/npm/v/abort-controller.svg)](https://www.npmjs.com/package/abort-controller)
 [![Downloads/month](https://img.shields.io/npm/dm/abort-controller.svg)](http://www.npmtrends.com/abort-controller)
 [![Build Status](https://travis-ci.org/mysticatea/abort-controller.svg?branch=master)](https://travis-ci.org/mysticatea/abort-controller)
 [![Coverage Status](https://codecov.io/gh/mysticatea/abort-controller/branch/master/graph/badge.svg)](https://codecov.io/gh/mysticatea/abort-controller)
 [![Dependency Status](https://david-dm.org/mysticatea/abort-controller.svg)](https://david-dm.org/mysticatea/abort-controller)
--->
 
 An implementation of [WHATWG AbortController interface](https://dom.spec.whatwg.org/#interface-abortcontroller).
 
