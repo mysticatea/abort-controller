@@ -24,6 +24,8 @@ signal.addEventListener("abort", () => {
 controller.abort()
 ```
 
+> https://jsfiddle.net/1r2994qp/1/
+
 ## 💿 Installation
 
 Use [npm](https://www.npmjs.com/) to install then use a bundler.
