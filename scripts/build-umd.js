@@ -10,7 +10,7 @@ const banner = `/**
  * See LICENSE file in root directory for full license.
  */`
 const outro = `if (typeof module === "undefined" && typeof define === "undefined") {
-    const global = Function("return this")
+    const global = Function("return this")()
     if (typeof global.AbortController === "undefined") {
         global.AbortController = AbortController
         global.AbortSignal = AbortSignal
