@@ -60,7 +60,7 @@
     "watch": "run-p watch:*",
     "watch:mocha": "mocha test/index.mjs --compilers mjs:babel-register --watch --growl",
     "watch:karma": "karma start scripts/karma.conf.js --watch",
-    "codecov": "codecov"
+    "codecov": "nyc report --reporter lcovonly && codecov"
   },
   "repository": {
     "type": "git",
