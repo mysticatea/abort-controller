@@ -27,7 +27,7 @@ module.exports = function(config) {
                 }),
             ],
             format: "iife",
-            name: "EventTargetShim",
+            name: "AbortControllerShim",
             sourcemap: "inline",
         },
     })
