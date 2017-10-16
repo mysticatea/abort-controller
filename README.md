@@ -8,9 +8,6 @@
 
 An implementation of [WHATWG AbortController interface](https://dom.spec.whatwg.org/#interface-abortcontroller).
 
-- This provides `AbortController` constructor that can inherit for your custom object.
-- This provides an utility that defines properties of attribute listeners (e.g. `obj.onclick`).
-
 ```js
 import AbortController from "abort-controller"
 
