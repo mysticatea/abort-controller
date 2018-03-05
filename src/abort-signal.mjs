@@ -9,20 +9,15 @@ const abortedFlags = new WeakMap()
 /**
  * The signal class.
  * @constructor
+ * @name AbortSignal
  * @see https://dom.spec.whatwg.org/#abortsignal
  */
-export default function AbortSignal() {
-    EventTarget.call(this)
-    abortedFlags.set(this, false)
-}
-
-// Properties should be enumerable.
-AbortSignal.prototype = Object.create(EventTarget.prototype, {
-    constructor: {
-        value: AbortSignal,
-        configurable: true,
-        writable: true,
-    },
+export default class AbortSignal extends EventTarget {
+    constructor() {
+        throw new TypeError("AbortSignal cannot be constructed directly")
+        // Appease Rollup
+        super()
+    }
 
     /**
      * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
@@ -31,15 +26,13 @@ AbortSignal.prototype = Object.create(EventTarget.prototype, {
      * @name aborted
      * @type {boolean}
      */
-    aborted: {
-        get: function get_aborted() { //eslint-disable-line camelcase
-            const aborted = abortedFlags.get(this)
-            console.assert(typeof aborted === "boolean", "Expected 'this' to be an 'AbortSignal' object, but got", this)
-            return Boolean(aborted)
-        },
-        configurable: true,
-        enumerable: true,
-    },
+    get aborted() {
+        const aborted = abortedFlags.get(this)
+        if (typeof aborted !== "boolean") {
+            throw new TypeError(`Expected 'this' to be an 'AbortSignal' object, but got ${this === null ? "null" : typeof this}`)
+        }
+        return Boolean(aborted)
+    }
 
     /**
      * The event attribute for `abort` event.
@@ -48,9 +41,27 @@ AbortSignal.prototype = Object.create(EventTarget.prototype, {
      * @name onabort
      * @type {Function}
      */
+}
+
+// Properties should be enumerable.
+Object.defineProperties(AbortSignal.prototype, {
+    aborted: {
+        enumerable: true,
+    },
 })
 
 defineEventAttribute(AbortSignal.prototype, "abort")
+
+/**
+ * Create an AbortSignal object.
+ * @returns {AbortSignal}
+ */
+export function createAbortSignal() {
+    const signal = Object.create(AbortSignal.prototype)
+    EventTarget.call(signal)
+    abortedFlags.set(signal, false)
+    return signal
+}
 
 /**
  * Abort a given signal.

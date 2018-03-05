@@ -1,4 +1,4 @@
-import AbortSignal, { abortSignal } from "./abort-signal.mjs"
+import AbortSignal, { abortSignal, createAbortSignal } from "./abort-signal.mjs"
 
 /**
  * Associated signals.
@@ -13,48 +13,51 @@ const signals = new WeakMap()
  */
 function getSignal(controller) {
     const signal = signals.get(controller)
-    console.assert(signal != null, "Expected 'this' to be an 'AbortController' object, but got", controller)
+    if (signal == null) {
+        throw new TypeError(`Expected 'this' to be an 'AbortController' object, but got ${controller === null ? "null" : typeof controller}`)
+    }
     return signal
 }
 
 /**
  * The AbortController.
  * @constructor
+ * @name AbortController
  * @see https://dom.spec.whatwg.org/#abortcontroller
  */
-export default function AbortController() {
-    signals.set(this, new AbortSignal())
-}
+export default class AbortController {
+    constructor() {
+        signals.set(this, createAbortSignal())
+    }
 
-// Properties should be enumerable.
-Object.defineProperties(AbortController.prototype, {
     /**
      * Returns the `AbortSignal` object associated with this object.
      * @type {AbortSignal}
      */
-    signal: {
-        get: function get_signal() { //eslint-disable-line camelcase
-            return getSignal(this)
-        },
-        configurable: true,
-        enumerable: true,
-    },
+    get signal() {
+        return getSignal(this)
+    }
 
     /**
      * Abort and signal to any observers that the associated activity is to be aborted.
      * @returns {void}
      */
+    abort() {
+        // Not depend on this.signal which is overridable.
+        const signal = getSignal(this)
+        if (signal != null) {
+            abortSignal(signal)
+        }
+    }
+}
+
+// Properties should be enumerable.
+Object.defineProperties(AbortController.prototype, {
+    signal: {
+        enumerable: true
+    },
     abort: {
-        value: function abort() {
-            // Not depend on this.signal which is overridable.
-            const signal = getSignal(this)
-            if (signal != null) {
-                abortSignal(signal)
-            }
-        },
-        configurable: true,
-        enumerable: true,
-        writable: true,
+        enumerable: true
     },
 })
 

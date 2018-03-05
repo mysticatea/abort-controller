@@ -14,20 +14,15 @@ const abortedFlags = new WeakMap();
 /**
  * The signal class.
  * @constructor
+ * @name AbortSignal
  * @see https://dom.spec.whatwg.org/#abortsignal
  */
-function AbortSignal() {
-    EventTarget.call(this);
-    abortedFlags.set(this, false);
-}
-
-// Properties should be enumerable.
-AbortSignal.prototype = Object.create(EventTarget.prototype, {
-    constructor: {
-        value: AbortSignal,
-        configurable: true,
-        writable: true,
-    },
+class AbortSignal extends EventTarget {
+    constructor() {
+        throw new TypeError("AbortSignal cannot be constructed directly")
+        // Appease Rollup
+        super();
+    }
 
     /**
      * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
@@ -36,15 +31,13 @@ AbortSignal.prototype = Object.create(EventTarget.prototype, {
      * @name aborted
      * @type {boolean}
      */
-    aborted: {
-        get: function get_aborted() { //eslint-disable-line camelcase
-            const aborted = abortedFlags.get(this);
-            console.assert(typeof aborted === "boolean", "Expected 'this' to be an 'AbortSignal' object, but got", this);
-            return Boolean(aborted)
-        },
-        configurable: true,
-        enumerable: true,
-    },
+    get aborted() {
+        const aborted = abortedFlags.get(this);
+        if (typeof aborted !== "boolean") {
+            throw new TypeError(`Expected 'this' to be an 'AbortSignal' object, but got ${this === null ? "null" : typeof this}`)
+        }
+        return Boolean(aborted)
+    }
 
     /**
      * The event attribute for `abort` event.
@@ -53,9 +46,27 @@ AbortSignal.prototype = Object.create(EventTarget.prototype, {
      * @name onabort
      * @type {Function}
      */
+}
+
+// Properties should be enumerable.
+Object.defineProperties(AbortSignal.prototype, {
+    aborted: {
+        enumerable: true,
+    },
 });
 
 defineEventAttribute(AbortSignal.prototype, "abort");
+
+/**
+ * Create an AbortSignal object.
+ * @returns {AbortSignal}
+ */
+function createAbortSignal() {
+    const signal = Object.create(AbortSignal.prototype);
+    EventTarget.call(signal);
+    abortedFlags.set(signal, false);
+    return signal
+}
 
 /**
  * Abort a given signal.
@@ -84,48 +95,51 @@ const signals = new WeakMap();
  */
 function getSignal(controller) {
     const signal = signals.get(controller);
-    console.assert(signal != null, "Expected 'this' to be an 'AbortController' object, but got", controller);
+    if (signal == null) {
+        throw new TypeError(`Expected 'this' to be an 'AbortController' object, but got ${controller === null ? "null" : typeof controller}`)
+    }
     return signal
 }
 
 /**
  * The AbortController.
  * @constructor
+ * @name AbortController
  * @see https://dom.spec.whatwg.org/#abortcontroller
  */
-function AbortController() {
-    signals.set(this, new AbortSignal());
-}
+class AbortController {
+    constructor() {
+        signals.set(this, createAbortSignal());
+    }
 
-// Properties should be enumerable.
-Object.defineProperties(AbortController.prototype, {
     /**
      * Returns the `AbortSignal` object associated with this object.
      * @type {AbortSignal}
      */
-    signal: {
-        get: function get_signal() { //eslint-disable-line camelcase
-            return getSignal(this)
-        },
-        configurable: true,
-        enumerable: true,
-    },
+    get signal() {
+        return getSignal(this)
+    }
 
     /**
      * Abort and signal to any observers that the associated activity is to be aborted.
      * @returns {void}
      */
+    abort() {
+        // Not depend on this.signal which is overridable.
+        const signal = getSignal(this);
+        if (signal != null) {
+            abortSignal(signal);
+        }
+    }
+}
+
+// Properties should be enumerable.
+Object.defineProperties(AbortController.prototype, {
+    signal: {
+        enumerable: true
+    },
     abort: {
-        value: function abort() {
-            // Not depend on this.signal which is overridable.
-            const signal = getSignal(this);
-            if (signal != null) {
-                abortSignal(signal);
-            }
-        },
-        configurable: true,
-        enumerable: true,
-        writable: true,
+        enumerable: true
     },
 });
 
