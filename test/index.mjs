@@ -99,6 +99,18 @@ describe("AbortController", () => {
         it("should have 'onabort' property which is null by default", () => {
             assert(signal.onabort === null)
         })
+
+        it("should throw a TypeError if 'signal.aborted' getter is called with non AbortSignal object", () => {
+            const getAborted = Object.getOwnPropertyDescriptor(signal.__proto__, "aborted").get
+            try {
+                getAborted.call({})
+            }
+            catch (e) {
+                assert(e instanceof TypeError)
+                return
+            }
+            throw new Error("should throw a TypeError")
+        })
     })
 
     describe("'abort' method", () => {
@@ -132,5 +144,29 @@ describe("AbortController", () => {
 
             assert(listener.callCount === 1)
         })
+
+        it("should throw a TypeError if 'this' is not an AbortController object", () => {
+            try {
+                controller.abort.call({})
+            }
+            catch (e) {
+                assert(e instanceof TypeError)
+                return
+            }
+            throw new Error("should throw a TypeError")
+        })
+    })
+})
+
+describe("AbortSignal", () => {
+    it("should throw a TypeError when it's constructed directly", () => {
+        try {
+            new AbortSignal() //eslint-disable-line no-new
+        }
+        catch (e) {
+            assert(e instanceof TypeError)
+            return
+        }
+        throw new Error("should throw a TypeError")
     })
 })
