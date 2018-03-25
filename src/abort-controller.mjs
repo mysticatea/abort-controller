@@ -21,11 +21,12 @@ function getSignal(controller) {
 
 /**
  * The AbortController.
- * @constructor
- * @name AbortController
  * @see https://dom.spec.whatwg.org/#abortcontroller
  */
 export default class AbortController {
+    /**
+     * Initialize this controller.
+     */
     constructor() {
         signals.set(this, createAbortSignal())
     }
@@ -53,12 +54,8 @@ export default class AbortController {
 
 // Properties should be enumerable.
 Object.defineProperties(AbortController.prototype, {
-    signal: {
-        enumerable: true
-    },
-    abort: {
-        enumerable: true
-    },
+    signal: { enumerable: true },
+    abort: { enumerable: true },
 })
 
 export { AbortController, AbortSignal }

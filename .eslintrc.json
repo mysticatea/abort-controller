@@ -10,8 +10,9 @@
     "rules": {
         // `for-of` and `typeof x === "object"` have big cost after babel-transpiling.
         "no-restricted-syntax": ["error", "ForOfStatement", "BinaryExpression[left.operator='typeof'][right.value='object']"],
+        "import/exports-last": "off",
+        "import/first": "off",
         "mysticatea/prefer-for-of": "off",
-
         "node/no-unsupported-features": ["error", {"ignores": ["modules"]}]
     }
 }

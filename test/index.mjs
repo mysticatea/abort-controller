@@ -7,6 +7,7 @@
 // I could not use `assert` module because of https://github.com/defunctzombie/node-util/issues/10
 // I could not use `power-assert` module because of `isImportDefaultSpecifier` not found error.
 import chai from "chai"
+
 const assert = chai.assert
 
 // `spy/index.js` has `require("module")`, so it's problem in karma.

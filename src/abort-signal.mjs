@@ -13,17 +13,16 @@ const abortedFlags = new WeakMap()
  * @see https://dom.spec.whatwg.org/#abortsignal
  */
 export default class AbortSignal extends EventTarget {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
     constructor() {
-        throw new TypeError("AbortSignal cannot be constructed directly")
-        // Appease Rollup
         super()
+        throw new TypeError("AbortSignal cannot be constructed directly")
     }
 
     /**
      * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
-     * @property
-     * @memberof AbortSignal
-     * @name aborted
      * @type {boolean}
      */
     get aborted() {
@@ -54,7 +53,7 @@ defineEventAttribute(AbortSignal.prototype, "abort")
 
 /**
  * Create an AbortSignal object.
- * @returns {AbortSignal}
+ * @returns {AbortSignal} The created AbortSignal object.
  */
 export function createAbortSignal() {
     const signal = Object.create(AbortSignal.prototype)
