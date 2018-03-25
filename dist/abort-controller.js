@@ -22,17 +22,16 @@ const abortedFlags = new WeakMap();
  * @see https://dom.spec.whatwg.org/#abortsignal
  */
 class AbortSignal extends eventTargetShim.EventTarget {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
     constructor() {
-        throw new TypeError("AbortSignal cannot be constructed directly")
-        // Appease Rollup
         super();
+        throw new TypeError("AbortSignal cannot be constructed directly")
     }
 
     /**
      * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
-     * @property
-     * @memberof AbortSignal
-     * @name aborted
      * @type {boolean}
      */
     get aborted() {
@@ -63,7 +62,7 @@ eventTargetShim.defineEventAttribute(AbortSignal.prototype, "abort");
 
 /**
  * Create an AbortSignal object.
- * @returns {AbortSignal}
+ * @returns {AbortSignal} The created AbortSignal object.
  */
 function createAbortSignal() {
     const signal = Object.create(AbortSignal.prototype);
@@ -107,11 +106,12 @@ function getSignal(controller) {
 
 /**
  * The AbortController.
- * @constructor
- * @name AbortController
  * @see https://dom.spec.whatwg.org/#abortcontroller
  */
 class AbortController {
+    /**
+     * Initialize this controller.
+     */
     constructor() {
         signals.set(this, createAbortSignal());
     }
@@ -139,15 +139,11 @@ class AbortController {
 
 // Properties should be enumerable.
 Object.defineProperties(AbortController.prototype, {
-    signal: {
-        enumerable: true
-    },
-    abort: {
-        enumerable: true
-    },
+    signal: { enumerable: true },
+    abort: { enumerable: true },
 });
 
-exports['default'] = AbortController;
+exports.default = AbortController;
 exports.AbortController = AbortController;
 exports.AbortSignal = AbortSignal;
 
