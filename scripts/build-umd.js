@@ -25,8 +25,28 @@ const outro = `if (typeof module === "undefined" && typeof define === "undefined
             resolve({ extensions: [".mjs"] }),
             babel({
                 babelrc: false,
+                include: "**/*.{js,mjs}",
+                exclude: [],
+                externalHelpers: false,
+                externalHelpersWhitelist: [
+                    "createClass",
+                    "classCallCheck",
+                    "inherits",
+                    "possibleConstructorReturn",
+                    "typeof",
+                ],
                 presets: [
-                    ["env", { modules: false, targets: { browsers: ["ie 11"] } }],
+                    [
+                        "env",
+                        {
+                            modules: false,
+                            targets: { browsers: ["ie 11"] },
+                            useBuiltIns: true,
+                        },
+                    ],
+                ],
+                plugins: [
+                    "external-helpers",
                 ],
             }),
             minify({

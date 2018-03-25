@@ -20,10 +20,29 @@ module.exports = function(config) {
                 json(),
                 babel({
                     babelrc: false,
-                    presets: [
-                        ["env", { modules: false, targets: { browsers: ["ie 11"] } }],
-                    ],
+                    include: "**/*.{js,mjs}",
+                    exclude: [],
                     externalHelpers: false,
+                    externalHelpersWhitelist: [
+                        "createClass",
+                        "classCallCheck",
+                        "inherits",
+                        "possibleConstructorReturn",
+                        "typeof",
+                    ],
+                    presets: [
+                        [
+                            "env",
+                            {
+                                modules: false,
+                                targets: { browsers: ["ie 11"] },
+                                useBuiltIns: true,
+                            },
+                        ],
+                    ],
+                    plugins: [
+                        "external-helpers",
+                    ],
                 }),
             ],
             format: "iife",

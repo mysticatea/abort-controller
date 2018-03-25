@@ -4,21 +4,28 @@
  * See LICENSE file in root directory for full license.
  */
 
-// I could not use `assert` module because of https://github.com/defunctzombie/node-util/issues/10
-// I could not use `power-assert` module because of `isImportDefaultSpecifier` not found error.
-import chai from "chai"
-
-const assert = chai.assert
-
-// `spy/index.js` has `require("module")`, so it's problem in karma.
-import spy from "spy/lib/spy"
-
-// Test target.
+import "babel-polyfill" // spy uses `Object.assign` IE11 doesn't support.
+import { spy } from "simple-spy"
 import { AbortController, AbortSignal } from "../src/abort-controller.mjs"
 
 /*globals EventTarget */
-
 const HAS_EVENT_TARGET_INTERFACE = (typeof EventTarget !== "undefined")
+
+/**
+ * Assert a condition.
+ *
+ * - I could not use `assert` module because of https://github.com/defunctzombie/node-util/issues/10
+ * - I could not use `power-assert` module because of `isImportDefaultSpecifier` not found error.
+ *
+ * @param {boolean} condition The condition to assert.
+ * @param {string} [message] The assertion message.
+ * @returns {void}
+ */
+function assert(condition, message) {
+    if (!condition) {
+        throw new Error(`AssertionError: ${message || "(no message)"}`)
+    }
+}
 
 //------------------------------------------------------------------------------
 // Tests
