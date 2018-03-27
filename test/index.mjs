@@ -38,6 +38,17 @@ describe("AbortController", () => {
         controller = new AbortController()
     })
 
+    it("should not be callable", () => {
+        try {
+            AbortController()
+        }
+        catch (e) {
+            assert(e instanceof TypeError)
+            return
+        }
+        throw new Error("should throw a TypeError")
+    })
+
     it("should have 2 properties", () => {
         // IE does not support Set constructor.
         const keys = new Set()
@@ -159,6 +170,17 @@ describe("AbortController", () => {
 })
 
 describe("AbortSignal", () => {
+    it("should not be callable", () => {
+        try {
+            AbortSignal()
+        }
+        catch (e) {
+            assert(e instanceof TypeError)
+            return
+        }
+        throw new Error("should throw a TypeError")
+    })
+
     it("should throw a TypeError when it's constructed directly", () => {
         try {
             new AbortSignal() //eslint-disable-line no-new
