@@ -58,4 +58,11 @@ Object.defineProperties(AbortController.prototype, {
     abort: { enumerable: true },
 })
 
+if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") { //eslint-disable-line node/no-unsupported-features
+    Object.defineProperty(AbortController.prototype, Symbol.toStringTag, { //eslint-disable-line node/no-unsupported-features
+        configurable: true,
+        value: "AbortController",
+    })
+}
+
 export { AbortController, AbortSignal }

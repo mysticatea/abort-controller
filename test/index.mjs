@@ -10,6 +10,7 @@ import { AbortController, AbortSignal } from "../src/abort-controller.mjs"
 
 /*globals EventTarget */
 const HAS_EVENT_TARGET_INTERFACE = (typeof EventTarget !== "undefined")
+const SUPPORTS_TOSTRINGTAG = (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") //eslint-disable-line node/no-unsupported-features
 
 /**
  * Assert a condition.
@@ -63,6 +64,10 @@ describe("AbortController", () => {
         keys.forEach(key => {
             assert(false, `'${key}' not found`)
         })
+    })
+
+    ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortController]", () => {
+        assert(controller.toString() === "[object AbortController]")
     })
 
     describe("'signal' property", () => {
@@ -190,5 +195,10 @@ describe("AbortSignal", () => {
             return
         }
         throw new Error("should throw a TypeError")
+    })
+
+    ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortSignal]", () => {
+        const signal = new AbortController().signal
+        assert(signal.toString() === "[object AbortSignal]")
     })
 })
