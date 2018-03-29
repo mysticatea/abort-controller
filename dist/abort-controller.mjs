@@ -54,6 +54,13 @@ Object.defineProperties(AbortSignal.prototype, {
     },
 });
 
+if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") { //eslint-disable-line node/no-unsupported-features
+    Object.defineProperty(AbortSignal.prototype, Symbol.toStringTag, { //eslint-disable-line node/no-unsupported-features
+        configurable: true,
+        value: "AbortSignal",
+    });
+}
+
 defineEventAttribute(AbortSignal.prototype, "abort");
 
 /**
@@ -138,6 +145,13 @@ Object.defineProperties(AbortController.prototype, {
     signal: { enumerable: true },
     abort: { enumerable: true },
 });
+
+if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") { //eslint-disable-line node/no-unsupported-features
+    Object.defineProperty(AbortController.prototype, Symbol.toStringTag, { //eslint-disable-line node/no-unsupported-features
+        configurable: true,
+        value: "AbortController",
+    });
+}
 
 export default AbortController;
 export { AbortController, AbortSignal };
