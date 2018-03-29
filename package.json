@@ -1,6 +1,6 @@
 {
   "name": "abort-controller",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An implementation of WHATWG AbortController interface.",
   "main": "dist/abort-controller",
   "files": [
