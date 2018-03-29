@@ -3,30 +3,12 @@
  * @copyright 2017 Toru Nagashima. All rights reserved.
  * See LICENSE file in root directory for full license.
  */
-
-import "babel-polyfill" // spy uses `Object.assign` IE11 doesn't support.
-import { spy } from "simple-spy"
 import { AbortController, AbortSignal } from "../src/abort-controller.mjs"
+import { assert, spy } from "./lib/util.mjs"
 
 /*globals EventTarget */
 const HAS_EVENT_TARGET_INTERFACE = (typeof EventTarget !== "undefined")
 const SUPPORTS_TOSTRINGTAG = (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") //eslint-disable-line node/no-unsupported-features
-
-/**
- * Assert a condition.
- *
- * - I could not use `assert` module because of https://github.com/defunctzombie/node-util/issues/10
- * - I could not use `power-assert` module because of `isImportDefaultSpecifier` not found error.
- *
- * @param {boolean} condition The condition to assert.
- * @param {string} [message] The assertion message.
- * @returns {void}
- */
-function assert(condition, message) {
-    if (!condition) {
-        throw new Error(`AssertionError: ${message || "(no message)"}`)
-    }
-}
 
 //------------------------------------------------------------------------------
 // Tests
@@ -40,14 +22,7 @@ describe("AbortController", () => {
     })
 
     it("should not be callable", () => {
-        try {
-            AbortController()
-        }
-        catch (e) {
-            assert(e instanceof TypeError)
-            return
-        }
-        throw new Error("should throw a TypeError")
+        assert.throws(() => AbortController(), TypeError)
     })
 
     it("should have 2 properties", () => {
@@ -118,14 +93,11 @@ describe("AbortController", () => {
 
         it("should throw a TypeError if 'signal.aborted' getter is called with non AbortSignal object", () => {
             const getAborted = Object.getOwnPropertyDescriptor(signal.__proto__, "aborted").get
-            try {
-                getAborted.call({})
-            }
-            catch (e) {
-                assert(e instanceof TypeError)
-                return
-            }
-            throw new Error("should throw a TypeError")
+            assert.throws(() => getAborted.call({}), TypeError)
+        })
+
+        ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortSignal]", () => {
+            assert(signal.toString() === "[object AbortSignal]")
         })
     })
 
@@ -162,43 +134,17 @@ describe("AbortController", () => {
         })
 
         it("should throw a TypeError if 'this' is not an AbortController object", () => {
-            try {
-                controller.abort.call({})
-            }
-            catch (e) {
-                assert(e instanceof TypeError)
-                return
-            }
-            throw new Error("should throw a TypeError")
+            assert.throws(() => controller.abort.call({}), TypeError)
         })
     })
 })
 
 describe("AbortSignal", () => {
     it("should not be callable", () => {
-        try {
-            AbortSignal()
-        }
-        catch (e) {
-            assert(e instanceof TypeError)
-            return
-        }
-        throw new Error("should throw a TypeError")
+        assert.throws(() => AbortSignal(), TypeError)
     })
 
     it("should throw a TypeError when it's constructed directly", () => {
-        try {
-            new AbortSignal() //eslint-disable-line no-new
-        }
-        catch (e) {
-            assert(e instanceof TypeError)
-            return
-        }
-        throw new Error("should throw a TypeError")
-    })
-
-    ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortSignal]", () => {
-        const signal = new AbortController().signal
-        assert(signal.toString() === "[object AbortSignal]")
+        assert.throws(() => new AbortSignal(), TypeError)
     })
 })
