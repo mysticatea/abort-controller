@@ -7,7 +7,7 @@
     "dist"
   ],
   "engines": {
-    "code": ">=4"
+    "node": ">=4"
   },
   "dependencies": {
     "event-target-shim": "^3.0.0"
