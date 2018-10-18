@@ -4,7 +4,8 @@
   "description": "An implementation of WHATWG AbortController interface.",
   "main": "dist/abort-controller",
   "files": [
-    "dist"
+    "dist",
+    "polyfill.*"
   ],
   "engines": {
     "node": ">=4"
