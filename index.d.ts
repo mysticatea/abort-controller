@@ -1,6 +1,6 @@
-import { Event, EventTarget } from "event-target-shim";
-
 declare module "abort-controller" {  
+    import { Event, EventTarget } from "event-target-shim";
+    
     export class AbortSignal extends EventTarget {
         private constructor();
     
@@ -12,7 +12,7 @@ declare module "abort-controller" {
         onabort: ((this: this, ev: Event) => any) | null;
     }
     
-    export default class AbortController {
+    export class AbortController {
         /**
          * Returns the AbortSignal object associated with this object.
          */
@@ -24,4 +24,5 @@ declare module "abort-controller" {
          */
         abort(): void;
     }
+    export default AbortController;
 }
