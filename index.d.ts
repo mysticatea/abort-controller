@@ -1,5 +1,7 @@
 import { Event, EventTarget } from "event-target-shim";
 
+export as namespace AbortControllerShim;
+
 export class AbortSignal extends EventTarget {
     private constructor();
 
