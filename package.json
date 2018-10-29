@@ -1,17 +1,18 @@
 {
   "name": "abort-controller",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An implementation of WHATWG AbortController interface.",
   "main": "dist/abort-controller",
-  "typings": "dist/abort-controller.d.ts",
+  "types": "index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "engines": {
     "code": ">=4"
   },
   "dependencies": {
-    "event-target-shim": "^3.0.0"
+    "event-target-shim": "git+https://github.com/FrogTheFrog/event-target-shim.git"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
