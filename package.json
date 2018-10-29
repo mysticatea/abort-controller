@@ -12,7 +12,7 @@
     "code": ">=4"
   },
   "dependencies": {
-    "event-target-shim": "git+https://github.com/FrogTheFrog/event-target-shim.git"
+    "event-target-shim": "^3.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
