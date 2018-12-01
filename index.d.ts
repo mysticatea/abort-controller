@@ -1,6 +1,14 @@
-import { Event, EventTarget } from "event-target-shim";
+import { 
+    Event, 
+    EventTarget, 
+    AddEventListenerOptions, 
+    EventListenerOptions,
+    EventTargetListener
+ } from "event-target-shim";
 
 export as namespace AbortControllerShim;
+
+export type AbortSignalListener = (this: AbortSignal, ev: Event) => any;
 
 export class AbortSignal extends EventTarget {
     private constructor();
@@ -10,7 +18,11 @@ export class AbortSignal extends EventTarget {
      * otherwise.
      */
     readonly aborted: boolean;
-    onabort: ((this: this, ev: Event) => any) | null;
+    onabort: AbortSignalListener | null;
+    addEventListener(type: "abort", listener: AbortSignalListener, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventTargetListener | null, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: "abort", listener: AbortSignalListener, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventTargetListener | null, options?: boolean | EventListenerOptions): void;
 }
 
 export class AbortController {
