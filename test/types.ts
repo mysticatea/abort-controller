@@ -23,9 +23,10 @@ controllerCallback(controllerShim);
 controllerShimCallback(controller);
 controllerShimCallback(controllerShim);
 
-if (!signalShim.aborted) {
+if (signalShim.aborted === false) {
     signalShim.addEventListener("abort", abortCallback);
     signalShim.removeEventListener("abort", abortCallback);
+    signalShim.onabort = null;
     signalShim.onabort = abortCallback;
 }
 controllerShim.abort();
