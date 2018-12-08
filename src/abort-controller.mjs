@@ -14,7 +14,11 @@ const signals = new WeakMap()
 function getSignal(controller) {
     const signal = signals.get(controller)
     if (signal == null) {
-        throw new TypeError(`Expected 'this' to be an 'AbortController' object, but got ${controller === null ? "null" : typeof controller}`)
+        throw new TypeError(
+            `Expected 'this' to be an 'AbortController' object, but got ${
+                controller === null ? "null" : typeof controller
+            }`
+        )
     }
     return signal
 }
@@ -58,8 +62,8 @@ Object.defineProperties(AbortController.prototype, {
     abort: { enumerable: true },
 })
 
-if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") { //eslint-disable-line node/no-unsupported-features
-    Object.defineProperty(AbortController.prototype, Symbol.toStringTag, { //eslint-disable-line node/no-unsupported-features
+if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") {
+    Object.defineProperty(AbortController.prototype, Symbol.toStringTag, {
         configurable: true,
         value: "AbortController",
     })

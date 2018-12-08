@@ -1,14 +1,14 @@
 /**
  * @author Toru Nagashima <https://github.com/mysticatea>
- * @copyright 2017 Toru Nagashima. All rights reserved.
  * See LICENSE file in root directory for full license.
  */
 import { AbortController, AbortSignal } from "../src/abort-controller.mjs"
 import { assert, spy } from "./lib/util.mjs"
 
 /*globals EventTarget */
-const HAS_EVENT_TARGET_INTERFACE = (typeof EventTarget !== "undefined")
-const SUPPORTS_TOSTRINGTAG = (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") //eslint-disable-line node/no-unsupported-features
+const HAS_EVENT_TARGET_INTERFACE = typeof EventTarget !== "undefined"
+const SUPPORTS_TOSTRINGTAG =
+    typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol"
 
 //------------------------------------------------------------------------------
 // Tests
@@ -40,10 +40,12 @@ describe("AbortController", () => {
             assert(false, `'${key}' not found`)
         })
     })
-
-    ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortController]", () => {
-        assert(controller.toString() === "[object AbortController]")
-    })
+    ;(SUPPORTS_TOSTRINGTAG ? it : xit)(
+        "should be stringified as [object AbortController]",
+        () => {
+            assert(controller.toString() === "[object AbortController]")
+        }
+    )
 
     describe("'signal' property", () => {
         let signal = null
@@ -59,10 +61,12 @@ describe("AbortController", () => {
         it("should be a AbortSignal object", () => {
             assert(signal instanceof AbortSignal)
         })
-
-        ;(HAS_EVENT_TARGET_INTERFACE ? it : xit)("should be a EventTarget object", () => {
-            assert(signal instanceof EventTarget)
-        })
+        ;(HAS_EVENT_TARGET_INTERFACE ? it : xit)(
+            "should be a EventTarget object",
+            () => {
+                assert(signal instanceof EventTarget)
+            }
+        )
 
         it("should have 5 properties", () => {
             // IE does not support Set constructor.
@@ -92,13 +96,18 @@ describe("AbortController", () => {
         })
 
         it("should throw a TypeError if 'signal.aborted' getter is called with non AbortSignal object", () => {
-            const getAborted = Object.getOwnPropertyDescriptor(signal.__proto__, "aborted").get
+            const getAborted = Object.getOwnPropertyDescriptor(
+                signal.__proto__,
+                "aborted"
+            ).get
             assert.throws(() => getAborted.call({}), TypeError)
         })
-
-        ;(SUPPORTS_TOSTRINGTAG ? it : xit)("should be stringified as [object AbortSignal]", () => {
-            assert(signal.toString() === "[object AbortSignal]")
-        })
+        ;(SUPPORTS_TOSTRINGTAG ? it : xit)(
+            "should be stringified as [object AbortSignal]",
+            () => {
+                assert(signal.toString() === "[object AbortSignal]")
+            }
+        )
     })
 
     describe("'abort' method", () => {

@@ -15,33 +15,21 @@ module.exports = function(config) {
         preprocessors: { "test/*.mjs": ["rollup"] },
         rollupPreprocessor: {
             plugins: [
-                resolve(),
+                resolve({ browser: true, preferBuiltins: false }),
                 commonjs(),
                 json(),
                 babel({
                     babelrc: false,
                     include: "**/*.{js,mjs}",
                     exclude: [],
-                    externalHelpers: false,
-                    externalHelpersWhitelist: [
-                        "createClass",
-                        "classCallCheck",
-                        "inherits",
-                        "possibleConstructorReturn",
-                        "typeof",
-                    ],
                     presets: [
                         [
-                            "env",
+                            "@babel/env",
                             {
                                 modules: false,
                                 targets: { browsers: ["ie 11"] },
-                                useBuiltIns: true,
                             },
                         ],
-                    ],
-                    plugins: [
-                        "external-helpers",
                     ],
                 }),
             ],
