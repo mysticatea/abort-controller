@@ -9,10 +9,10 @@ module.exports = function(config) {
     config.set({
         basePath: "..",
         frameworks: ["mocha"],
-        files: ["test/index.mjs"],
+        files: ["test/*.mjs"],
         browsers: ["Chrome", "Firefox", "IE"],
         reporters: ["progress", "growl"],
-        preprocessors: { "test/index.mjs": ["rollup"] },
+        preprocessors: { "test/*.mjs": ["rollup"] },
         rollupPreprocessor: {
             plugins: [
                 resolve(),

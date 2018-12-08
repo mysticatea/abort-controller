@@ -55,10 +55,10 @@
     "build:umd": "node scripts/build-umd",
     "pretest": "npm run lint",
     "test": "run-s test:*",
-    "test:mocha": "nyc --require ./scripts/babel-register.js mocha test/index.mjs",
+    "test:mocha": "nyc --require ./scripts/babel-register.js mocha test/*.mjs",
     "test:karma": "karma start scripts/karma.conf.js --single-run",
     "watch": "run-p watch:*",
-    "watch:mocha": "mocha test/index.mjs --compilers mjs:babel-register --watch --growl",
+    "watch:mocha": "mocha test/*.mjs --compilers mjs:babel-register --watch --growl",
     "watch:karma": "karma start scripts/karma.conf.js --watch",
     "codecov": "nyc report --reporter lcovonly && codecov"
   },

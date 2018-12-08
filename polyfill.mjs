@@ -1,10 +1,16 @@
-import * as ac from "./dist/abort-controller"
+/*globals self */
+import * as ac from "."
 
-if (typeof window !== "undefined") {
-    if (typeof window.AbortController === "undefined") {
-        window.AbortController = ac.AbortController
+const global =
+    typeof window !== "undefined" ? window :
+    typeof self !== "undefined" ? self :
+    /* otherwise */ undefined
+
+if (global) {
+    if (typeof global.AbortController === "undefined") {
+        global.AbortController = ac.AbortController
     }
-    if (typeof window.AbortSignal === "undefined") {
-        window.AbortSignal = ac.AbortSignal
+    if (typeof global.AbortSignal === "undefined") {
+        global.AbortSignal = ac.AbortSignal
     }
 }
