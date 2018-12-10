@@ -28,9 +28,13 @@ export default class AbortSignal extends EventTarget {
     get aborted() {
         const aborted = abortedFlags.get(this)
         if (typeof aborted !== "boolean") {
-            throw new TypeError(`Expected 'this' to be an 'AbortSignal' object, but got ${this === null ? "null" : typeof this}`)
+            throw new TypeError(
+                `Expected 'this' to be an 'AbortSignal' object, but got ${
+                    this === null ? "null" : typeof this
+                }`
+            )
         }
-        return Boolean(aborted)
+        return aborted
     }
 
     /**
@@ -49,8 +53,8 @@ Object.defineProperties(AbortSignal.prototype, {
     },
 })
 
-if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") { //eslint-disable-line node/no-unsupported-features
-    Object.defineProperty(AbortSignal.prototype, Symbol.toStringTag, { //eslint-disable-line node/no-unsupported-features
+if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") {
+    Object.defineProperty(AbortSignal.prototype, Symbol.toStringTag, {
         configurable: true,
         value: "AbortSignal",
     })

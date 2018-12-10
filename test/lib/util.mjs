@@ -23,12 +23,13 @@ export function assert(condition, message) {
 assert.throws = (f, type) => {
     try {
         f()
-    }
-    catch (e) {
+    } catch (e) {
         assert(e instanceof (type || Error))
         return
     }
-    throw new Error(`AssertionError: should throw a ${(type || Error).name} object`)
+    throw new Error(
+        `AssertionError: should throw a ${(type || Error).name} object`
+    )
 }
 
 /**

@@ -1,2 +1,6 @@
+/.nyc_output
+/coverage
 /dist
-/scripts/babel-register.js
+/node_modules
+
+!.eslintrc.js
