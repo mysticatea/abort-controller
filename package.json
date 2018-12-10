@@ -3,9 +3,11 @@
   "version": "1.1.0",
   "description": "An implementation of WHATWG AbortController interface.",
   "main": "dist/abort-controller",
+  "types": "index.d.ts",
   "files": [
     "dist",
-    "polyfill.*"
+    "polyfill.*",
+    "index.d.ts"
   ],
   "engines": {
     "node": ">=6.5"
@@ -40,7 +42,8 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-watch": "^4.3.1"
+    "rollup-watch": "^4.3.1",
+    "typescript": "^3.2.1"
   },
   "scripts": {
     "preversion": "npm test",
@@ -53,6 +56,7 @@
     "test": "run-s -s lint test:*",
     "test:mocha": "nyc --require ./scripts/babel-register.js mocha test/*.mjs",
     "test:karma": "karma start scripts/karma.conf.js --single-run",
+    "test:types": "tsc",
     "watch": "run-p -s watch:*",
     "watch:mocha": "mocha test/*.mjs --require ./scripts/babel-register.js --watch --watch-extensions js,mjs --growl",
     "watch:karma": "karma start scripts/karma.conf.js --watch",
