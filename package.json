@@ -6,7 +6,8 @@
   "types": "index.d.ts",
   "files": [
     "dist",
-    "index.d.ts"
+    "index.d.ts",
+    "polyfill.*"
   ],
   "engines": {
     "code": ">=4"
@@ -35,12 +36,12 @@
     "nyc": "^11.6.0",
     "opener": "^1.4.3",
     "rimraf": "^2.6.2",
-    "rollup": "^0.57.1",
-    "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-babel-minify": "^4.0.0",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-babel-minify": "^6.2.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-watch": "^4.3.1",
     "typescript": "^3.2.1"
   },
@@ -60,8 +61,8 @@
     "test:mocha": "nyc --require ./scripts/babel-register.js mocha test/index.mjs",
     "test:karma": "karma start scripts/karma.conf.js --single-run",
     "test:types": "tsc",
-    "watch": "run-p watch:*",
-    "watch:mocha": "mocha test/index.mjs --compilers mjs:babel-register --watch --growl",
+    "watch": "run-p -s watch:*",
+    "watch:mocha": "mocha test/*.mjs --require ./scripts/babel-register.js --watch --watch-extensions js,mjs --growl",
     "watch:karma": "karma start scripts/karma.conf.js --watch",
     "codecov": "nyc report --reporter lcovonly && codecov"
   },

@@ -14,13 +14,11 @@ const signalShim = controllerShim.signal;
 signalCallback(signal);
 signalCallback(signalShim);
 
-signalShimCallback(signal);
 signalShimCallback(signalShim);
 
 controllerCallback(controller);
 controllerCallback(controllerShim);
 
-controllerShimCallback(controller);
 controllerShimCallback(controllerShim);
 
 if (signalShim.aborted === false) {
