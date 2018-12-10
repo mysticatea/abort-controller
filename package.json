@@ -12,7 +12,7 @@
     "code": ">=4"
   },
   "dependencies": {
-    "event-target-shim": "^4.0.2"
+    "event-target-shim": "^4.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

@@ -8,16 +8,7 @@ import {
 
 export as namespace AbortControllerShim;
 
-/**
- * Temporary event type to keep typescript happy.
- */
-interface ProgressEvent extends Event {
-    readonly lengthComputable: any;
-    readonly loaded: any;
-    readonly total: any;
-}
-
-export type AbortSignalListener = (this: AbortSignal, ev: ProgressEvent) => any;
+export type AbortSignalListener = (this: AbortSignal, ev: any) => any;
 
 export class AbortSignal extends EventTarget {
     private constructor();
