@@ -6,7 +6,7 @@ node_js:
   - "11"
 
 script:
-  - npm test
+  - npm run -s test:mocha
 
 after_success:
   - npm run codecov
