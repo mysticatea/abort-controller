@@ -60,7 +60,7 @@
     "lint": "eslint . --ext .ts",
     "build": "run-s -s build:*",
     "build:rollup": "rollup -c",
-    "build:dts": "dts-bundle-generator -o dist/abort-controller.d.ts src/abort-controller.ts",
+    "build:dts": "dts-bundle-generator -o dist/abort-controller.d.ts src/abort-controller.ts && ts-node scripts/fix-dts",
     "test": "run-s -s lint test:*",
     "test:mocha": "nyc mocha test/*.ts",
     "test:karma": "karma start --single-run",
