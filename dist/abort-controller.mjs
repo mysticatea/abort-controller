@@ -84,11 +84,7 @@ class AbortController {
      * Abort and signal to any observers that the associated activity is to be aborted.
      */
     abort() {
-        // Not depend on this.signal which is overridable.
-        const signal = getSignal(this);
-        if (signal != null) {
-            abortSignal(signal);
-        }
+        abortSignal(getSignal(this));
     }
 }
 /**
