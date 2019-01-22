@@ -5,8 +5,7 @@
   "main": "dist/abort-controller",
   "files": [
     "dist",
-    "polyfill.*",
-    "index.d.ts"
+    "polyfill.*"
   ],
   "engines": {
     "node": ">=6.5"
