@@ -18,8 +18,6 @@ type EventAttributes = {
 
 /**
  * The signal class.
- * @constructor
- * @name AbortSignal
  * @see https://dom.spec.whatwg.org/#abortsignal
  */
 export default class AbortSignal extends EventTarget<Events, EventAttributes> {
