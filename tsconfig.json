@@ -1,13 +1,24 @@
 {
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "esModuleInterop": true,
         "lib": ["es2015", "dom"],
-        "noEmit": true,
-        "strict": true
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "newLine": "LF",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "sourceMap": true,
+        "strict": true,
+        "target": "es2015"
     },
-    "files": [
-        "test/types.ts"
-    ],
-    "exclude": [
-        "node_modules"
+    "include": [
+        "scripts/*.ts",
+        "src/*.ts",
+        "test/*.ts"
     ]
 }

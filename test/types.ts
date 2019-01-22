@@ -1,30 +1,23 @@
-import { AbortController as AbortControllerShim, AbortSignal as AbortSignalShim } from "..";
+import path from "path"
+import { TypeTester } from "type-tester"
+import ts from "typescript"
 
-function signalCallback(as: AbortSignal) { }
-function signalShimCallback(as: AbortSignalShim) { }
-function controllerCallback(ac: AbortController) { }
-function controllerShimCallback(ac: AbortControllerShim) { }
-function abortCallback(this: AbortSignal, ev: Event) { }
+const tester = new TypeTester(ts)
 
-const controller = new AbortController();
-const controllerShim = new AbortControllerShim();
-const signal = controller.signal;
-const signalShim = controllerShim.signal;
+describe("TypeScript type definitions", () => {
+    describe("'abort-controller.ts' should have no error even if it was compiled without 'lib.dom.d.ts'.", () => {
+        tester.verify([path.resolve(__dirname, "../src/abort-controller.ts")], {
+            lib: ["lib.es2015.d.ts"],
+            moduleResolution: ts.ModuleResolutionKind.NodeJs,
+            strict: true,
+            target: ts.ScriptTarget.ES2015,
+        })
+    })
 
-signalCallback(signal);
-signalCallback(signalShim);
-
-signalShimCallback(signalShim);
-
-controllerCallback(controller);
-controllerCallback(controllerShim);
-
-controllerShimCallback(controllerShim);
-
-if (signalShim.aborted === false) {
-    signalShim.addEventListener("abort", abortCallback);
-    signalShim.removeEventListener("abort", abortCallback);
-    signalShim.onabort = null;
-    signalShim.onabort = abortCallback;
-}
-controllerShim.abort();
+    tester.verify([path.resolve(__dirname, "fixtures/types.ts")], {
+        lib: ["lib.es2015.d.ts", "lib.dom.d.ts"],
+        moduleResolution: ts.ModuleResolutionKind.NodeJs,
+        strict: true,
+        target: ts.ScriptTarget.ES2015,
+    })
+})

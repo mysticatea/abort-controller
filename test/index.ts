@@ -2,8 +2,9 @@
  * @author Toru Nagashima <https://github.com/mysticatea>
  * See LICENSE file in root directory for full license.
  */
-import { AbortController, AbortSignal } from "../src/abort-controller.mjs"
-import { assert, spy } from "./lib/util.mjs"
+import assert from "assert"
+import { AbortController, AbortSignal } from "../src/abort-controller"
+import { spy } from "@mysticatea/spy"
 
 /*globals EventTarget */
 const HAS_EVENT_TARGET_INTERFACE = typeof EventTarget !== "undefined"
@@ -15,14 +16,14 @@ const SUPPORTS_TOSTRINGTAG =
 //------------------------------------------------------------------------------
 
 describe("AbortController", () => {
-    let controller = null
+    let controller: AbortController
 
     beforeEach(() => {
         controller = new AbortController()
     })
 
     it("should not be callable", () => {
-        assert.throws(() => AbortController(), TypeError)
+        assert.throws(() => (AbortController as any)(), TypeError)
     })
 
     it("should have 2 properties", () => {
@@ -40,15 +41,17 @@ describe("AbortController", () => {
             assert(false, `'${key}' not found`)
         })
     })
+
+    //
     ;(SUPPORTS_TOSTRINGTAG ? it : xit)(
         "should be stringified as [object AbortController]",
         () => {
             assert(controller.toString() === "[object AbortController]")
-        }
+        },
     )
 
     describe("'signal' property", () => {
-        let signal = null
+        let signal: AbortSignal
 
         beforeEach(() => {
             signal = controller.signal
@@ -65,7 +68,7 @@ describe("AbortController", () => {
             "should be a EventTarget object",
             () => {
                 assert(signal instanceof EventTarget)
-            }
+            },
         )
 
         it("should have 5 properties", () => {
@@ -97,16 +100,16 @@ describe("AbortController", () => {
 
         it("should throw a TypeError if 'signal.aborted' getter is called with non AbortSignal object", () => {
             const getAborted = Object.getOwnPropertyDescriptor(
-                signal.__proto__,
-                "aborted"
-            ).get
-            assert.throws(() => getAborted.call({}), TypeError)
+                (signal as any).__proto__,
+                "aborted",
+            )!.get
+            assert.throws(() => getAborted!.call({}), TypeError)
         })
         ;(SUPPORTS_TOSTRINGTAG ? it : xit)(
             "should be stringified as [object AbortSignal]",
             () => {
                 assert(signal.toString() === "[object AbortSignal]")
-            }
+            },
         )
     })
 
@@ -121,7 +124,7 @@ describe("AbortController", () => {
             controller.signal.addEventListener("abort", listener)
             controller.abort()
 
-            assert(listener.callCount === 1)
+            assert(listener.calls.length === 1)
         })
 
         it("should fire 'abort' event on 'signal' (onabort)", () => {
@@ -129,7 +132,7 @@ describe("AbortController", () => {
             controller.signal.onabort = listener
             controller.abort()
 
-            assert(listener.callCount === 1)
+            assert(listener.calls.length === 1)
         })
 
         it("should not fire 'abort' event twice", () => {
@@ -139,7 +142,7 @@ describe("AbortController", () => {
             controller.abort()
             controller.abort()
 
-            assert(listener.callCount === 1)
+            assert(listener.calls.length === 1)
         })
 
         it("should throw a TypeError if 'this' is not an AbortController object", () => {
@@ -150,7 +153,7 @@ describe("AbortController", () => {
 
 describe("AbortSignal", () => {
     it("should not be callable", () => {
-        assert.throws(() => AbortSignal(), TypeError)
+        assert.throws(() => (AbortSignal as any)(), TypeError)
     })
 
     it("should throw a TypeError when it's constructed directly", () => {

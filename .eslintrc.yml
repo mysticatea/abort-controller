@@ -1,0 +1,21 @@
+root: true
+
+extends:
+  - plugin:@mysticatea/es2018
+  - plugin:@mysticatea/+node
+
+overrides:
+  - files: test/**
+    rules:
+      new-cap: "off"
+
+  # To reduce size for babel-translation.
+  - files: "*"
+    rules:
+      no-restricted-syntax:
+        - error
+        - ForOfStatement
+        - BinaryExpression[left.operator='typeof'][right.value='object']
+      prefer-rest-params: "off"
+      prefer-spread: "off"
+      "@mysticatea/prefer-for-of": "off"

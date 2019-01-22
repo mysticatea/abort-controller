@@ -3,12 +3,12 @@
 
 const ac = require(".")
 
-/*eslint-disable @mysticatea/prettier */
+/*eslint-disable no-shadow, @mysticatea/prettier */
 const global =
     typeof window !== "undefined" ? window :
     typeof self !== "undefined" ? self :
     /* otherwise */ undefined
-/*eslint-enable @mysticatea/prettier */
+/*eslint-enable no-shadow, @mysticatea/prettier */
 
 if (global) {
     if (typeof global.AbortController === "undefined") {

@@ -1,8 +1,16 @@
 {
     "include": [
-        "src/*"
+        "src/**/*.ts"
     ],
     "extension": [
-        ".mjs"
-    ]
+        ".ts"
+    ],
+    "require": [
+        "ts-node/register"
+    ],
+    "reporter": [
+        "lcov",
+        "text"
+    ],
+    "sourceMap": true
 }

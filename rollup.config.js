@@ -1,10 +1,10 @@
 import babel from "rollup-plugin-babel"
 import minify from "rollup-plugin-babel-minify"
 import resolve from "rollup-plugin-node-resolve"
+import typescript from "rollup-plugin-typescript"
 
 const banner = `/**
  * @author Toru Nagashima <https://github.com/mysticatea>
- * @copyright 2017 Toru Nagashima. All rights reserved.
  * See LICENSE file in root directory for full license.
  */`
 const cjsOutro = `module.exports = AbortController
@@ -23,52 +23,53 @@ const umdOutro = `if (typeof module === "undefined" && typeof define === "undefi
 export default [
     {
         external: ["event-target-shim"],
-        input: "src/abort-controller.mjs",
+        input: "src/abort-controller.ts",
         output: {
             banner,
             file: "dist/abort-controller.mjs",
             format: "es",
             sourcemap: true,
-            sourcemapFile: "dist/abort-controller.mjs.map",
         },
+        plugins: [typescript({ module: "es2015" })],
     },
     {
         external: ["event-target-shim"],
-        input: "src/abort-controller.mjs",
+        input: "src/abort-controller.ts",
         output: {
             banner,
             file: "dist/abort-controller.js",
             format: "cjs",
             outro: cjsOutro,
             sourcemap: true,
-            sourcemapFile: "dist/abort-controller.js.map",
         },
+        plugins: [typescript({ module: "es2015" })],
     },
     {
-        input: "src/abort-controller.mjs",
+        input: "src/abort-controller.ts",
         output: {
             file: "dist/abort-controller.umd.js",
             format: "umd",
             name: "AbortControllerShim",
             outro: umdOutro,
             sourcemap: true,
-            sourcemapFile: "dist/abort-controller.umd.js.map",
         },
         plugins: [
             resolve(),
+            typescript({ module: "es2015" }),
             babel({
                 babelrc: false,
-                include: "**/*.{js,mjs}",
-                exclude: [],
+                extensions: [".mjs", ".ts"],
+                include: ["**/*.mjs", "**/*.ts"],
                 presets: [
                     [
                         "@babel/env",
                         {
                             modules: false,
-                            targets: { browsers: ["ie 11"] },
+                            targets: { ie: "11" },
                         },
                     ],
                 ],
+                sourceMaps: true,
             }),
             minify({
                 comments: false,

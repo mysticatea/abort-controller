@@ -1,27 +1,4 @@
-import AbortSignal, { abortSignal, createAbortSignal } from "./abort-signal.mjs"
-
-/**
- * Associated signals.
- * @type {WeakMap<AbortController, AbortSignal>}
- */
-const signals = new WeakMap()
-
-/**
- * Get the associated signal of a given controller.
- * @param {AbortController} controller The controller to get its associated signal.
- * @returns {AbortSignal} The associated signal.
- */
-function getSignal(controller) {
-    const signal = signals.get(controller)
-    if (signal == null) {
-        throw new TypeError(
-            `Expected 'this' to be an 'AbortController' object, but got ${
-                controller === null ? "null" : typeof controller
-            }`
-        )
-    }
-    return signal
-}
+import AbortSignal, { abortSignal, createAbortSignal } from "./abort-signal"
 
 /**
  * The AbortController.
@@ -31,29 +8,47 @@ export default class AbortController {
     /**
      * Initialize this controller.
      */
-    constructor() {
+    public constructor() {
         signals.set(this, createAbortSignal())
     }
 
     /**
      * Returns the `AbortSignal` object associated with this object.
-     * @type {AbortSignal}
      */
-    get signal() {
+    public get signal(): AbortSignal {
         return getSignal(this)
     }
 
     /**
      * Abort and signal to any observers that the associated activity is to be aborted.
-     * @returns {void}
      */
-    abort() {
+    public abort(): void {
         // Not depend on this.signal which is overridable.
         const signal = getSignal(this)
         if (signal != null) {
             abortSignal(signal)
         }
     }
+}
+
+/**
+ * Associated signals.
+ */
+const signals = new WeakMap<AbortController, AbortSignal>()
+
+/**
+ * Get the associated signal of a given controller.
+ */
+function getSignal(controller: AbortController): AbortSignal {
+    const signal = signals.get(controller)
+    if (signal == null) {
+        throw new TypeError(
+            `Expected 'this' to be an 'AbortController' object, but got ${
+                controller === null ? "null" : typeof controller
+            }`,
+        )
+    }
+    return signal
 }
 
 // Properties should be enumerable.
