@@ -12,7 +12,7 @@ module.exports.AbortController = module.exports["default"] = AbortController
 module.exports.AbortSignal = AbortSignal
 `
 const umdOutro = `if (typeof module === "undefined" && typeof define === "undefined") {
-    const global = Function("return this")()
+    var global = Function("return this")()
     if (typeof global.AbortController === "undefined") {
         global.AbortController = AbortController
         global.AbortSignal = AbortSignal
