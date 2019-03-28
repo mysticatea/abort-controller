@@ -13,6 +13,7 @@
   "dependencies": {
     "event-target-shim": "^5.0.0"
   },
+  "browser": "./browser.js",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-modules-commonjs": "^7.2.0",
