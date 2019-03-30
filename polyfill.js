@@ -1,20 +1,21 @@
 /*globals require, self, window */
 "use strict"
 
-const ac = require(".")
+const ac = require("./dist/abort-controller")
 
-/*eslint-disable no-shadow, @mysticatea/prettier */
-const global =
-    typeof window !== "undefined" ? window :
+/*eslint-disable @mysticatea/prettier */
+const g =
     typeof self !== "undefined" ? self :
+    typeof window !== "undefined" ? window :
+    typeof global !== "undefined" ? global :
     /* otherwise */ undefined
-/*eslint-enable no-shadow, @mysticatea/prettier */
+/*eslint-enable @mysticatea/prettier */
 
-if (global) {
-    if (typeof global.AbortController === "undefined") {
-        global.AbortController = ac.AbortController
+if (g) {
+    if (typeof g.AbortController === "undefined") {
+        g.AbortController = ac.AbortController
     }
-    if (typeof global.AbortSignal === "undefined") {
-        global.AbortSignal = ac.AbortSignal
+    if (typeof g.AbortSignal === "undefined") {
+        g.AbortSignal = ac.AbortSignal
     }
 }
