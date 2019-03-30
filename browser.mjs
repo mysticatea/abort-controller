@@ -1,5 +1,4 @@
 /*globals self, window */
-"use strict"
 
 /*eslint-disable @mysticatea/prettier */
 const { AbortController, AbortSignal } =
@@ -8,6 +7,5 @@ const { AbortController, AbortSignal } =
     /* otherwise */ undefined
 /*eslint-enable @mysticatea/prettier */
 
-module.exports = AbortController
-module.exports.AbortSignal = AbortSignal
-module.exports.default = AbortController
+export default AbortController
+export { AbortController, AbortSignal }
