@@ -39,6 +39,8 @@ Or download from [`dist` directory](./dist).
 
 ## 📖 Usage
 
+### Basic
+
 ```js
 import AbortController from "abort-controller"
 // or
@@ -48,15 +50,30 @@ const AbortController = require("abort-controller")
 const AbortController = window.AbortControllerShim
 ```
 
-### AbortController
+If your bundler recognizes `browser` field of `package.json`, the imported `AbortController` is the native one and it doesn't contain shim (even if the native implementation was nothing).
+If you wanted to polyfill `AbortController` for IE, use `abort-controller/polyfill`.
+
+### Polyfilling
+
+Importing `abort-controller/polyfill` assigns the `AbortController` shim to the `AbortController` global variable if the native implementation was nothing.
+
+```js
+import "abort-controller/polyfill"
+// or
+require("abort-controller/polyfill")
+```
+
+### API
+
+#### AbortController
 
 > https://dom.spec.whatwg.org/#interface-abortcontroller
 
-#### controller.signal
+##### controller.signal
 
 The [AbortSignal](https://dom.spec.whatwg.org/#interface-AbortSignal) object which is associated to this controller.
 
-#### controller.abort()
+##### controller.abort()
 
 Notify `abort` event to listeners that the `signal` has.
 
