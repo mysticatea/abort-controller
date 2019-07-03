@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "An implementation of WHATWG AbortController interface.",
   "main": "dist/abort-controller",
+  "types": "dist/abort-controller.d.ts",
   "files": [
     "dist",
     "polyfill.*",
