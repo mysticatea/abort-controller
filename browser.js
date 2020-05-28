@@ -10,4 +10,4 @@ const { AbortController, AbortSignal } =
 
 module.exports = AbortController
 module.exports.AbortSignal = AbortSignal
-module.exports.default = AbortController
+module.exports.AbortController = module.exports.default = AbortController
