@@ -2,6 +2,7 @@
   "name": "abort-controller",
   "version": "3.0.0",
   "description": "An implementation of WHATWG AbortController interface.",
+  "types": "dist/abort-controller.d.ts",
   "main": "dist/abort-controller",
   "files": [
     "dist",
