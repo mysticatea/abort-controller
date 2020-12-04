@@ -113,6 +113,5 @@ if (typeof Symbol === "function" && typeof Symbol.toStringTag === "symbol") {
     });
 }
 
-export default AbortController;
 export { AbortController, AbortSignal };
 //# sourceMappingURL=abort-controller.mjs.map

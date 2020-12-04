@@ -2,7 +2,7 @@
   "name": "abort-controller",
   "version": "3.0.0",
   "description": "An implementation of WHATWG AbortController interface.",
-  "main": "dist/abort-controller",
+  "main": "./node.js",
   "files": [
     "dist",
     "polyfill.*",
