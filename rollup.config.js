@@ -7,9 +7,10 @@ const banner = `/**
  * @author Toru Nagashima <https://github.com/mysticatea>
  * See LICENSE file in root directory for full license.
  */`
-const cjsOutro = `module.exports = AbortController
-module.exports.AbortController = module.exports["default"] = AbortController
-module.exports.AbortSignal = AbortSignal
+const cjsOutro = `module.exports = {
+    AbortController: AbortController,
+    AbortSignal: AbortSignal
+}
 `
 const umdOutro = `if (typeof module === "undefined" && typeof define === "undefined") {
     var global = Function("return this")()

@@ -4,7 +4,7 @@ import AbortSignal, { abortSignal, createAbortSignal } from "./abort-signal"
  * The AbortController.
  * @see https://dom.spec.whatwg.org/#abortcontroller
  */
-export default class AbortController {
+class AbortController {
     /**
      * Initialize this controller.
      */

@@ -9,7 +9,7 @@
 An implementation of [WHATWG AbortController interface](https://dom.spec.whatwg.org/#interface-abortcontroller).
 
 ```js
-import AbortController from "abort-controller"
+import { AbortController } from "abort-controller"
 
 const controller = new AbortController()
 const signal = controller.signal
@@ -42,9 +42,9 @@ Or download from [`dist` directory](./dist).
 ### Basic
 
 ```js
-import AbortController from "abort-controller"
+import { AbortController } from "abort-controller"
 // or
-const AbortController = require("abort-controller")
+const { AbortController } = require("abort-controller")
 
 // or UMD version defines a global variable:
 const AbortController = window.AbortControllerShim
