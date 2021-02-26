@@ -6,6 +6,7 @@ const ac = require("./dist/abort-controller")
 /*eslint-disable @mysticatea/prettier */
 const g =
     typeof self !== "undefined" ? self :
+    typeof globalThis !== "undefined" ? globalThis :
     typeof window !== "undefined" ? window :
     typeof global !== "undefined" ? global :
     /* otherwise */ undefined
